@@ -1,0 +1,15 @@
+<%= render "shared/login_form" unless current_member %>
+
+<h2>news</h2>
+<ul>
+<% Article.sidebar_articles(current_member,5).each do |article| %>
+  <li><%= link_to article.title, article %></li>
+<% end %>
+</ul>
+
+<h2>blog</h2>
+<ul>
+<% Entry.sidebar_entries(current_member, 5).each do |entry| %>
+  <li><%= link_to entry.title, entry %> <%= link_to entry.author.name,[entry.author, :entries] %></li>
+<% end %>
+</ul>

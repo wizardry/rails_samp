@@ -1,0 +1,36 @@
+<div class="headerInner">
+  <%= image_tag("icon.png", alt:"title") %>
+  <p><%= current_member.administrator? %></p>
+  <div class="menubar">
+    <%= menu_link_to "top", root_path %>
+    <ul>
+<% if controller.kind_of?(Admin::Base) %>
+      <li><%= link_to "Member Manage", :admin_members %></li>
+      <li><%= link_to "Article Manage", :admin_articles %></li>
+      <li><%= link_to "top", :root %></li>
+<% else %>
+      <li><%= menu_link_to "news", :articles %></li>
+      <li><%= menu_link_to "blog", :entries %></li>
+      <% if current_member %>
+      <li><%= menu_link_to "account", :members %></li>
+        <% if current_member.administrator? %>
+      <li><%= menu_link_to "admins", :admin_root %></li>
+        <% end %>
+      <% end %>
+<% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="sidebarWrap">
+  <div class="sideBar">
+    <%= render "shared/sidebar" %>
+  </div>
+  <div id="article_expired_area">
+    <input type="checkbox" id="article_no_expiration">
+    <div id="article_expired_at">aaaaaaaaaaaaaaaaaaaa</div>
+  </div>
+  <% if current_member %>
+  <p><%= link_to current_member.name + "さん" , :account  %><%= link_to "logout", :session, method: :delete, data: {confirm: "if your logout ?"} %></p>
+  <% end %>
+</div>
